@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Claude Code Free Setup Guide</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #0f172a;
+            --code-text: #f8fafc;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-alt);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .sidebar h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav li a:hover {
+            background: #e2e8f0;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem 5rem;
+            max-width: 1000px;
+        }
+
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .list-item {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .list-number {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 1.5rem;
+        }
+
+        /* Callouts */
+        .callout {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .callout-warning {
+            background: #fffbeb;
+            border-color: var(--accent-warning);
+            color: #92400e;
+        }
+
+        .callout-info {
+            background: #eff6ff;
+            border-color: var(--accent-info);
+            color: #1e40af;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .footer {
+            margin-top: 6rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h3>Getting Started</h3>
+        <ul class="sidebar-nav">
+            <li><a href="#step1">1. Official Installation</a></li>
+            <li><a href="#step2">2. Runtime Setup</a></li>
+            <li><a href="#step3">3. Proxy Configuration</a></li>
+            <li><a href="#step4">4. API Key Acquisition</a></li>
+            <li><a href="#step5">5. Model Mapping</a></li>
+            <li><a href="#step6">6. Launching</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Claude Code <span style="color: var(--primary);">Free Setup</span></h1>
+            <p class="subtitle">A professional technical guide to configuring the Claude Code CLI using NVIDIA NIM and open-source proxy routing.</p>
+        </header>
+
+        <!-- Step 1 -->
+        <div class="section" id="step1">
+            <h2><span class="step-badge">1</span> Install Claude Code</h2>
+            <p>The first requirement is the official Claude Code CLI developed by Anthropic.</p>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Visit the official Claude Code website to get the most recent install command.</span>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Open your Terminal (zsh/bash on Mac/Linux, or WSL/Ubuntu on Windows).</span>
+            </div>
+            <div class="list-item">
+                <span class="list-number">3.</span>
+                <span>Execute the installation script:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">curl -fsSL https://claude.ai/install.sh | bash</div>
+            </div>
+            <div class="callout callout-warning">
+                <strong>Important:</strong> Do not run the <code>claude</code> command just yet. We must configure the proxy routing first to avoid official billing.
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="section" id="step2">
+            <h2><span class="step-badge">2</span> Install uv and Python</h2>
+            <p>To run the proxy server, we use <code>uv</code>, an extremely fast Python package and project manager.</p>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Install the <code>uv</code> binary using the official astral.sh script:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">curl -LsSf https://astral.sh/uv/install.sh | sh</div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Install Python 3.14 via uv:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">uv python install 3.14</div>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="section" id="step3">
+            <h2><span class="step-badge">3</span> Clone Proxy Server Repository</h2>
+            <p>Instead of running heavy local models (Ollama/LM Studio), we use a proxy that routes requests to high-performance cloud APIs.</p>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Create a dedicated directory for the proxy and clone the repository:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">git clone https://github.com/Alishahryar1/free-claude-code.git nvidia-nim
+cd nvidia-nim</div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Initialize the environment configuration file:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">cp .env.example .env</div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">3.</span>
+                <span>Open this folder in your preferred editor (e.g., <code>code .</code> for VS Code) to begin configuration.</span>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="section" id="step4">
+            <h2><span class="step-badge">4</span> Obtain Free API Keys</h2>
+            <p>You will need API keys to authorize the proxy server. NVIDIA NIM is highly recommended for stability and speed.</p>
+
+            <div class="callout callout-info">
+                <strong>Action:</strong> Open the <code>.env</code> file and populate the following fields:
+            </div>
+
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <div>
+                    <strong>NVIDIA NIM (Recommended):</strong><br>
+                    Create an account at <a href="https://build.nvidia.com/settings/api-keys" target="_blank">build.nvidia.com</a>, verify via phone, and generate a key named "CC". Paste this into <code>NVIDIA_API_KEY</code>.
+                </div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <div>
+                    <strong>OpenRouter (Optional):</strong><br>
+                    Generate a key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai</a> and paste it into <code>OPENROUTER_API_KEY</code>.
+                </div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">3.</span>
+                <div>
+                    <strong>DeepSeek (Optional):</strong><br>
+                    Generate a key at <a href="https://platform.deepseek.com/api_keys" target="_blank">platform.deepseek.com</a> and paste it into <code>DEEPSEEK_API_KEY</code>.
+                </div>
+            </div>
+            <p><strong>Save your <code>.env</code> file before proceeding.</strong></p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="section" id="step5">
+            <h2><span class="step-badge">5</span> Configure the Models</h2>
+            <p>Claude Code expects specific model tiers (Opus, Sonnet, Haiku). We map these to our free endpoints in the configuration file.</p>
+
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <div>
+                    <strong>Opus Mapping:</strong> Use NVIDIA GLM. Go to NVIDIA NIM, filter by "Free Endpoint", copy the model string, and format as: <br>
+                    <code>nvidia/[model-name]</code> (e.g., <code>nvidia/glm-4.7</code>)
+                </div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <div>
+                    <strong>Sonnet Mapping:</strong> Use OpenRouter's top free models. Format as:<br>
+                    <code>openrouter/[model-name]</code> (e.g., <code>openrouter/google/gemma-2-27b</code>)
+                </div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">3.</span>
+                <div>
+                    <strong>Haiku Mapping:</strong> Use DeepSeek Reasoner. Format as:<br>
+                    <code>deepseek/deepseek-reasoner</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="section" id="step6">
+            <h2><span class="step-badge">6</span> Run and Launch</h2>
+            <p>Finally, start the proxy server and launch the Claude CLI with redirected environment variables.</p>
+
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <div>
+                    <strong>Start the Proxy Server:</strong> (In the <code>nvidia-nim</code> folder)
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">uv run uvicorn server:app --host 0.0.0.0 --port 8082</div>
+            </div>
+            <div class="callout callout-warning">
+                <strong>Note:</strong> Keep this terminal window open. The proxy server must be active for Claude Code to function.
+            </div>
+
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <div>
+                    <strong>Launch Claude Code:</strong> Open a <strong>NEW</strong> terminal, navigate to your actual project folder, and run:
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">ANTHROPIC_AUTH_TOKEN="freecc" ANTHROPIC_BASE_URL="http://localhost:8082" claude</div>
+            </div>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h2>Conclusion</h2>
+            <p>You have successfully bypassed the high cost of AI coding agents by utilizing NVIDIA NIM and a lightweight proxy. You now have a professional-grade coding assistant capable of complex file edits and architectural decisions without the monthly subscription fee.</p>
+            <div class="callout callout-info">
+                <strong>Pro Tip:</strong> Once inside Claude Code, type <code>/sandbox</code> and select "Sandbox with auto-allow" to eliminate tedious per-file permissions.
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Claude Code Free Setup Guide. Documentation for educational purposes.</p>
+        </footer>
+    </main>
+
+    <script>
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.innerText = 'Copied!';
+                setTimeout(() => btn.innerText = 'Copy', 2000);
+            });
+        }
+    </script>
+</body>
+</html>
