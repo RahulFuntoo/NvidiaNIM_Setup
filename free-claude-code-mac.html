@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Setup | Free Claude Code</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #0f172a;
+            --code-text: #f8fafc;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-alt);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .sidebar h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav li a:hover {
+            background: #e2e8f0;
+        }
+
+        .platform-badge {
+            background: #1e293b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem 5rem;
+            max-width: 1000px;
+        }
+
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .list-item {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .list-number {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 1.5rem;
+        }
+
+        .callout {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .callout-warning {
+            background: #fffbeb;
+            border-color: var(--accent-warning);
+            color: #92400e;
+        }
+
+        .callout-info {
+            background: #eff6ff;
+            border-color: var(--accent-info);
+            color: #1e40af;
+        }
+
+        .callout-purple {
+            background: #faf5ff;
+            border-color: #9333ea;
+            color: #581c87;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .prereq-box {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .prereq-box h3 {
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .prereq-box ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .prereq-box li {
+            margin: 0.5rem 0;
+        }
+
+        .footer {
+            margin-top: 6rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h3>Getting Started</h3>
+        <ul class="sidebar-nav">
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#step1">1. Install OpenCode</a></li>
+            <li><a href="#step2">2. Connect to OpenCode</a></li>
+            <li><a href="#step3">3. Get API Key</a></li>
+            <li><a href="#step4">4. Configure Claude</a></li>
+            <li><a href="#step5">5. Activate</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <span class="platform-badge">macOS</span>
+            <h1 style="margin-top: 1rem;">Free Claude Code Setup</h1>
+            <p class="subtitle">Using OpenCode AI API for free access to Claude Code with powerful AI capabilities.</p>
+        </header>
+
+        <div class="section" id="prerequisites">
+            <h2>Prerequisites</h2>
+            <div class="prereq-box">
+                <h3>Required Software</h3>
+                <ul>
+                    <li>Node.js installed</li>
+                    <li>VS Code or other IDE installed</li>
+                    <li>Claude Code installed</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="step1">
+            <h2><span class="step-badge">1</span> Install OpenCode</h2>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Open your terminal and run the following installation command:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">curl -fsSL https://opencode.ai/install | bash</div>
+            </div>
+        </div>
+
+        <div class="section" id="step2">
+            <h2><span class="step-badge">2</span> Connect to OpenCode</h2>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Call <code>/connect</code> in your terminal</span>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Select <code>opencodezen</code> from the options</span>
+            </div>
+        </div>
+
+        <div class="section" id="step3">
+            <h2><span class="step-badge">3</span> Get API Key</h2>
+            <p>Create your API key from OpenCode to authenticate your connection.</p>
+            <div class="callout callout-purple">
+                <div>
+                    <strong>Steps:</strong><br>
+                    1. Open and login at <a href="https://opencode.ai/zen" target="_blank">opencode.ai/zen</a><br>
+                    2. Go to API keys: <a href="https://opencode.ai/workspace/wrk_01KR5HX634B6DHA9P8KZ1ZVG54/keys" target="_blank">opencode.ai workspace keys</a><br>
+                    3. Create a new API key and copy it
+                </div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">4.</span>
+                <span>Enter your API key when prompted</span>
+            </div>
+        </div>
+
+        <div class="section" id="step4">
+            <h2><span class="step-badge">4</span> Configure Claude Settings</h2>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Open the Claude configuration folder:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">code ~/.claude</div>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Edit <code>settings.json</code> and add the following environment variables:</span>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <div class="code-block">"env": {
+    "ANTHROPIC_BASE_URL": "https://opencode.ai/zen",
+    "ANTHROPIC_MODEL": "minimax-m2.5-free",
+    "ANTHROPIC_API_KEY": "YOUR_API_KEY",
+    "ENABLE_TOOL_SEARCH": "true"
+}</div>
+            </div>
+        </div>
+
+        <div class="section" id="step5">
+            <h2><span class="step-badge">5</span> Activate Free Claude Code</h2>
+            <div class="list-item">
+                <span class="list-number">1.</span>
+                <span>Open VS Code and launch the terminal</span>
+            </div>
+            <div class="list-item">
+                <span class="list-number">2.</span>
+                <span>Type <code>claude</code> to start</span>
+            </div>
+            <div class="callout callout-info">
+                <strong>Note:</strong> When prompted, select "yes" to use the API key. Press enter twice to confirm and activate free Claude Code.
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Free Claude Code Setup Guide. Documentation for educational purposes.</p>
+        </footer>
+    </main>
+
+    <script>
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.innerText = 'Copied!';
+                setTimeout(() => btn.innerText = 'Copy', 2000);
+            });
+        }
+    </script>
+</body>
+</html>
